@@ -10,7 +10,7 @@ skip-lint = false
 pre_req_vault = "DBoobRVqT7PaAhq8obqo95723CHyWvcCLRUKvQ5wYWE4"
 
 [provider]
-cluster = "devnet"
+cluster = "https://devnet.helius-rpc.com/?api-key=844a3ce2-17c4-40e9-8d70-df1139f5f6d9"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

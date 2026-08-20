@@ -37,7 +37,7 @@ pub struct Withdraw<'info> {
 
     pub application_program: Program<'info, registration::program::Q3PreReqsRs>,
 
-    system_program: Program<'info, System>,
+    pub system_program: Program<'info, System>,
 }
 
 impl<'info> Withdraw<'info> {
@@ -62,6 +62,19 @@ impl<'info> Withdraw<'info> {
         // CPI to the application program to initialize your application account for registration.
         // All the neccessary function and account struct have been imported. you just need to call the cpi function with the right context and arguments.
         // make sure you pass in your github id
+
+        msg!("SOL transfer done, starting CPI...");
+
+        let cpi_account = Initialize {
+            user: self.user.to_account_info(),
+            account: self.application_account.to_account_info(),
+            system_program: self.system_program.to_account_info(),
+        };
+
+        let cpi_ctx = CpiContext::new(self.application_program.key(), cpi_account);
+        msg!("Calling registration program...");
+        initialize(cpi_ctx, "akash-wt".to_string())?;
+        msg!("CPI done!");
 
         Ok(())
     }
